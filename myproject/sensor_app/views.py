@@ -1,7 +1,7 @@
-from django.shortcuts import redirect, render
-from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import AuthenticationForm
+from django.shortcuts import redirect, render
 
 # Create your views here.
 
@@ -31,10 +31,10 @@ def login_view(request):
     # return render(request, "login.html", {"form": form})
     return render(request, "login.html")
 
+
 @login_required(login_url="/")
 def logout_view(request):
     logout(request)
     request.session.flush()
     redirect_url = request.session.pop("logout_redirect_url", "login")
     return redirect(redirect_url)
-

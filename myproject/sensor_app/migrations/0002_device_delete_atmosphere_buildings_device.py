@@ -7,23 +7,28 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('sensor_app', '0001_initial'),
+        ("sensor_app", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Device',
+            name="Device",
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False)),
-                ('serial_no', models.CharField(max_length=225, unique=True)),
+                ("id", models.AutoField(primary_key=True, serialize=False)),
+                ("serial_no", models.CharField(max_length=225, unique=True)),
             ],
         ),
         migrations.DeleteModel(
-            name='Atmosphere',
+            name="Atmosphere",
         ),
         migrations.AddField(
-            model_name='buildings',
-            name='device',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='sensor_app.device'),
+            model_name="buildings",
+            name="device",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                to="sensor_app.device",
+            ),
         ),
     ]

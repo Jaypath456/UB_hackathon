@@ -7,23 +7,22 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Atmosphere',
+            name="Atmosphere",
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False)),
-                ('temp', models.FloatField(blank=True, null=True)),
+                ("id", models.AutoField(primary_key=True, serialize=False)),
+                ("temp", models.FloatField(blank=True, null=True)),
             ],
         ),
         migrations.CreateModel(
-            name='Buildings',
+            name="Buildings",
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False)),
-                ('temp', models.FloatField(blank=True, null=True)),
-                ('location', models.CharField(blank=True, max_length=255, null=True)),
+                ("id", models.AutoField(primary_key=True, serialize=False)),
+                ("temp", models.FloatField(blank=True, null=True)),
+                ("location", models.CharField(blank=True, max_length=255, null=True)),
             ],
         ),
     ]

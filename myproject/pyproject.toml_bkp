@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "myproject"
+version = "0.1.0"
+description = ""
+authors = ["Jay Pathare"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+django = "^5.2.8"
+requests = "^2.32.5"
+psycopg2-binary = "^2.9.11"
+djangorestframework = "^3.16.1"
+django-cors-headers = "^4.9.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

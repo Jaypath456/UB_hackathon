@@ -13,3 +13,4 @@ class Buildings(models.Model):
     temp = models.FloatField(null=True, blank=True)
     location = models.CharField(max_length=255, null=True, blank=True)
     device = models.ForeignKey(Device, on_delete=models.SET_NULL, null=True, blank=True)
+    timestamp = models.DateTimeField(auto_now = True)

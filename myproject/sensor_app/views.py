@@ -7,6 +7,8 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 import json
 from .models import Device, Buildings
+import asyncio
+from asgiref.sync import sync_to_async
 
 
 # Create your views here.
@@ -47,14 +49,22 @@ def logout_view(request):
 
 @csrf_exempt
 def receive_iot_data(request):
+    print("request method", request.method)
     if request.method == "POST":
-        payload = json.loads(request.body.decode("utf-8"))
-        serial_no = payload.get("serial")
-        temperature = payload.get("temperature")
-        location = payload.get("location")
+        try:
+            payload = json.loads(request.body.decode("utf-8"))
+            print("payload", payload)
+            serial_no = payload.get("serial")
+            temperature = payload.get("temperature")
+            location = payload.get("location")
+            # timestamp = payload.get("location")
+            device, _ =Device.objects.get_or_create(serial_no=serial_no)
 
-        device = Device.objects.get(serial_no=serial_no)
+            Buildings.objects.create(temp=temperature, location=location, device=device)
 
-        Buildings.objects.create(temp=temperature, location=location, device=device)
-
-        return JsonResponse({"status": "success"}, status=201)
+            return JsonResponse({"status": "success"}, status=201)
+        except Exception as e:
+            print("Exception occurred", e)
+            return JsonResponse({"error":"Invalid payload"})
+    else:
+        return JsonResponse({"error":"unsupported method"})    

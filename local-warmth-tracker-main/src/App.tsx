@@ -20,6 +20,7 @@ const App = () => (
           <Route path="/" element={<Login />} />
           <Route path="/area-selection" element={<AreaSelection />} />
           <Route path="/dashboard/:areaId" element={<Dashboard />} />
+          <Route path="/callback" element={<Login />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

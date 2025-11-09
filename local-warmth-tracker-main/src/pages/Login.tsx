@@ -1,3 +1,4 @@
+import { useAuth0 } from "@auth0/auth0-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -6,12 +7,22 @@ import { Label } from "@/components/ui/label";
 import { GlassCard } from "@/components/GlassCard";
 import { Thermometer } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { FcGoogle } from "react-icons/fc";
 
 const Login = () => {
+  const { loginWithRedirect, isAuthenticated } = useAuth0();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const { toast } = useToast();
+
+  // 🔹 Step 1: Redirect if already logged in
+  if (isAuthenticated) {
+    window.location.href = "/area-selection";
+    return null;
+  }
+
+
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -21,7 +32,7 @@ const Login = () => {
       // Simulated login - replace with actual API call to Django backend
       toast({
         title: "Login Successful",
-        description: "Welcome to Temperature Monitor",
+        description: "Welcome to Campusense",
       });
       navigate("/area-selection");
     } else {
@@ -32,6 +43,8 @@ const Login = () => {
       });
     }
   };
+
+const handleGoogleLogin = () => loginWithRedirect();
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-cold p-4">
@@ -80,6 +93,21 @@ const Login = () => {
             Sign In
           </Button>
         </form>
+	        <div className="flex items-center justify-center gap-2 text-muted-foreground my-2">
+          <span className="border-t flex-1 border-gray-300"></span>
+          <span>OR</span>
+          <span className="border-t flex-1 border-gray-300"></span>
+        </div>
+
+        {/* Google / Auth0 login button */}
+        <Button
+          onClick={handleGoogleLogin}
+          className="w-full bg-white/80 hover:bg-white/90 text-black flex items-center justify-center gap-2"
+        >
+          <FcGoogle className="w-5 h-5" />
+          Sign in with Google
+        </Button>
+
       </GlassCard>
     </div>
   );

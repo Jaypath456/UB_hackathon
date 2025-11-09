@@ -3,6 +3,12 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import redirect, render
 
+from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse
+import json
+from .models import Device, Buildings
+
+
 # Create your views here.
 
 
@@ -38,3 +44,17 @@ def logout_view(request):
     request.session.flush()
     redirect_url = request.session.pop("logout_redirect_url", "login")
     return redirect(redirect_url)
+
+@csrf_exempt
+def receive_iot_data(request):
+    if request.method == "POST":
+        payload = json.loads(request.body.decode("utf-8"))
+        serial_no = payload.get("serial")
+        temperature = payload.get("temperature")
+        location = payload.get("location")
+
+        device = Device.objects.get(serial_no=serial_no)
+
+        Buildings.objects.create(temp=temperature, location=location, device=device)
+
+        return JsonResponse({"status": "success"}, status=201)

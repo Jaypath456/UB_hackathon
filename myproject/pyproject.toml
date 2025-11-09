@@ -1,23 +1,21 @@
-[project]
+[tool.poetry]
 name = "myproject"
 version = "0.1.0"
 description = ""
-authors = [
-    {name = "Jay Pathare",email = "jaypathare123@gmail.com"}
-]
+authors = ["Jay Pathare"]
 readme = "README.md"
-requires-python = ">=3.12"
-dependencies = [
-    "django (>=5.2.8,<6.0.0)",
-    "psycopg2-binary (>=2.9.11,<3.0.0)",
-    "django-allauth (>=65.13.0,<66.0.0)",
-    "httpx (>=0.28.1,<0.29.0)",
-    "requests (>=2.32.5,<3.0.0)",
-    "black (>=25.9.0,<26.0.0)",
-    "isort (>=7.0.0,<8.0.0)"
-]
+
+[tool.poetry.dependencies]
+python = "^3.12"
+django = "^5.2.8"
+requests = "^2.32.5"
+psycopg2-binary = "^2.9.11"
+djangorestframework = "^3.16.1"
+django-cors-headers = "^4.9.0"
+asgiref = "^3.10.0"
+gunicorn = "^23.0.0"
 
 
 [build-system]
-requires = ["poetry-core>=2.0.0,<3.0.0"]
+requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"

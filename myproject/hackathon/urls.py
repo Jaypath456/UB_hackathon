@@ -23,6 +23,8 @@ from sensor_app import views
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", views.login_view, name="login"),
+    path('callback/', views.callback, name='callback'),
     path("logout/", views.logout_view, name="logout_view"),
     path("push_data/", views.receive_iot_data, name="receive_iot_data"),
+    path('dashboard/', views.dashboard, name='dashboard'),
 ]
